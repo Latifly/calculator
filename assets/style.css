@@ -1,8 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap');
 
 :root {
-    --clr-background: #000;
+    --clr-background: rgb(89, 89, 89);
     --clr-text: #dcdcdc;
+    --clr-bgDisplay: #000;
+    
 }
 
 * {
@@ -31,16 +33,61 @@ p {
 }
 
 button {
+    position: relative;
     font-size: inherit;
     border: none;
     width: 25%;
     margin: 0;
     padding: 0;
+    color: var(--clr-text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--clr-bgDisplay);
+    cursor: pointer;
+}
+
+button::after {
+    position: absolute;
+    content: '';
+    width: 5rem;
+    aspect-ratio: 1 / 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background-color: red;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+button:hover::after {
+    opacity: 1;
+}
+
+button > * {
+    z-index: 1;
 }
 
 .display {
     height: 50vh;
+    background-color:var(--clr-bgDisplay) ;
+    display: flex;
+    /* justify-content: flex-end; */
+    align-items: flex-end;
+    padding: 1rem;
+    /* direction: rtl; */
 }
+
+.display #display-value {
+    max-width: 100%;
+    font-size: 3.5rem;
+    padding-block-end: 1em;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-gutter: stable;
+}
+
 
 .tempat-button {
     height: 50vh;
@@ -51,5 +98,6 @@ button {
     flex-direction: row;
     flex-wrap: wrap;
     height: 100%;
+    background-color: var(--clr-bgDisplay);
 }
 
