@@ -4,6 +4,7 @@ const button = document.querySelectorAll("button");
 displayValue.textContent = 0;
 
 let isFromEqual = false;
+let temp = 0;
 
 button.forEach((btn) => {
   btn.addEventListener("click", function () {
@@ -12,6 +13,9 @@ button.forEach((btn) => {
     if (isNaN(value)) value = btn.dataset.value;
 
     switch (value) {
+      case "double0":
+        displayValue.textContent += "00";
+        return;
       case "BS":
         if (displayValue.textContent.length - 1 === 0) {
           displayValue.textContent = "0";
@@ -23,19 +27,24 @@ button.forEach((btn) => {
         displayValue.textContent = 0;
         return;
       case "=":
-        displayValue.textContent = eval(temp);
         console.log(displayValue.textContent);
+        console.log(temp);
+        displayValue.textContent = eval(temp);
         isFromEqual = true;
         return;
       default:
+        if (isNaN(value) && isNaN(displayValue.textContent.slice(-1))) return;
         if (displayValue.textContent === "0") displayValue.textContent = "";
         if (isFromEqual && !isNaN(value)) {
           displayValue.textContent = "";
-          isFromEqual = false;
         }
+
+        isFromEqual = false;
 
         displayValue.textContent += value;
         temp = displayValue.textContent.replaceAll("X", "*");
+        temp = temp.replaceAll("%", "/100");
+        return;
     }
   });
 });
